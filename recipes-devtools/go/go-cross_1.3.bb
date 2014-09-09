@@ -3,6 +3,7 @@ require go.inc
 inherit cross
 
 do_compile() {
+  export GOBIN="${D}${bindir}"
   export GOROOT_FINAL="${D}${libdir}"
 
   export GOHOSTOS="linux"
