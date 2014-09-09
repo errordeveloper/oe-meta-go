@@ -29,8 +29,17 @@ do_compile() {
 }
 
 do_install() {
-  ## TODO:
-  #- it turns out that `${D}${bindir}` is already populated
-  #- we need to copy the rest, unfortunatelly pretty much everything
-  #  (see http://sources.gentoo.org/cgi-bin/viewvc.cgi/gentoo-x86/dev-lang/go/go-1.3.1.ebuild?view=markup)
+  ## It turns out that `${D}${bindir}` is already populated by compilation script
+  ## We need to copy the rest, unfortunatelly pretty much everything [1, 2].
+  ##
+  ## [1]: http://sources.gentoo.org/cgi-bin/viewvc.cgi/gentoo-x86/dev-lang/go/go-1.3.1.ebuild?view=markup)
+  ## [2]: https://code.google.com/p/go/issues/detail?id=2775
+
+  ## TODO: use install instead of mkdir and cp
+  mkdir -p "${D}${libdir}/go"
+  for dir in include lib pkg src test
+  do cp -a "${WORKDIR}/go/${dir}" "${D}${libdir}/go/"
+  done
 }
+
+## TODO: implement do_clean() and ensure we actually do rebuild super cleanly
