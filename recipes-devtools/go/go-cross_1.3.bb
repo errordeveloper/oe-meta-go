@@ -4,7 +4,7 @@ inherit cross
 
 do_compile() {
   export GOBIN="${D}${bindir}"
-  export GOROOT_FINAL="${D}${libdir}"
+  export GOROOT_FINAL="${D}${libdir}/go"
 
   export GOHOSTOS="linux"
   export GOOS="linux"
