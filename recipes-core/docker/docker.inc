@@ -5,6 +5,13 @@ LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda
 
 SRC_URI = "git://github.com/docker/docker"
 
-DEPENDS = "go-cross"
+DEPENDS = " \
+  go-cross \
+  sqlite3 \
+  iproute2 \
+  bridge-utils \
+  btrfs-tools \
+  lxc \
+"
 
 S = "${WORKDIR}/git"
