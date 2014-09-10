@@ -2,11 +2,9 @@ require go.inc
 
 inherit cross
 
-deltask configure
-
 do_compile() {
-  export GOBIN="${D}${bindir}"
-  export GOROOT_FINAL="${D}${libdir}/go"
+  ## Setting `$GOBIN` doesn't do any good, looks like it ends up copying binaries there.
+  export GOROOT_FINAL="${SYSROOT}${libdir}/go"
 
   export GOHOSTOS="linux"
   export GOOS="linux"
@@ -26,6 +24,25 @@ do_compile() {
   export GO_LDFLAGS="${HOST_LDFLAGS}"
 
   ./make.bash
+
+  ## The result is `go env` giving this:
+  # GOARCH="amd64"
+  # GOBIN=""
+  # GOCHAR="6"
+  # GOEXE=""
+  # GOHOSTARCH="amd64"
+  # GOHOSTOS="linux"
+  # GOOS="linux"
+  # GOPATH=""
+  # GORACE=""
+  # GOROOT="/home/build/poky/build/tmp/sysroots/x86_64-linux/usr/lib/cortexa8hf-vfp-neon-poky-linux-gnueabi/go"
+  # GOTOOLDIR="/home/build/poky/build/tmp/sysroots/x86_64-linux/usr/lib/cortexa8hf-vfp-neon-poky-linux-gnueabi/go/pkg/tool/linux_amd64"
+  ## The above is good, but these are a bit odd... especially the `-m64` flag.
+  # CC="arm-poky-linux-gnueabi-gcc"
+  # GOGCCFLAGS="-fPIC -m64 -pthread -fmessage-length=0"
+  # CXX="arm-poky-linux-gnueabi-g++"
+  ## TODO: test on C+Go project.
+  # CGO_ENABLED="1"
 }
 
 do_install() {
@@ -35,8 +52,12 @@ do_install() {
   ## [1]: http://sources.gentoo.org/cgi-bin/viewvc.cgi/gentoo-x86/dev-lang/go/go-1.3.1.ebuild?view=markup)
   ## [2]: https://code.google.com/p/go/issues/detail?id=2775
 
-  ## TODO: use install instead of mkdir and cp
-  mkdir -p "${D}${libdir}/go"
+  ## It should be okay to ignore `${WORKDIR}/go/bin/linux_arm`...
+  ## Also `gofmt` is not needed right now.
+  install -d "${D}${bindir}"
+  install -m 0755 "${WORKDIR}/go/bin/go" "${D}${bindir}"
+  install -d "${D}${libdir}/go"
+  ## TODO: use `install` instead of `cp`
   for dir in include lib pkg src test
   do cp -a "${WORKDIR}/go/${dir}" "${D}${libdir}/go/"
   done
