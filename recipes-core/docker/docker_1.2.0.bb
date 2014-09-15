@@ -1,6 +1,6 @@
 require docker.inc
 
-SRCREV = "v${PV}/cross_target_without_docker_installed"
+SRCREV = "v${PV}/fix_7979"
 SRC_URI = "git://github.com/errordeveloper/docker;branch=${SRCREV}"
 
 do_compile() {
