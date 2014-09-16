@@ -9,6 +9,7 @@ DEPENDS = " \
   go-cross \
   iproute2 \
   bridge-utils \
+  sqlite3 \
 "
 
 RDEPENDS_${PN} = " \

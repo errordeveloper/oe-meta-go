@@ -12,6 +12,7 @@ do_compile() {
 
   export GOARCH="arm"
   export AUTO_GOPATH="1"
+  export CGO_ENABLED="1"
 
   bash -x hack/make.sh binary
 }
