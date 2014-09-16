@@ -20,7 +20,7 @@ do_compile() {
 do_install() {
   install -d "${D}${bindir}"
   install -m 0755 "${S}/bundles/${PV}/binary/docker-${PV}" "${D}${bindir}"
-  ln -sf "docker-${PV}" "${S}/bundles/${PV}/binary/docker"
+  ln -sf "docker-${PV}" "${D}/${bindir}/docker"
 
   ##TODO: grab systemd configs, if we have systemd in distro features ("${S}/contrib/init/systemd/docker.{socker,service}")
 }
