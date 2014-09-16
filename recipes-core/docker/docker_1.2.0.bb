@@ -14,3 +14,11 @@ do_compile() {
 
   bash -x hack/make.sh binary
 }
+
+do_install() {
+  install -d "${D}${bindir}"
+  install -m 0755 "${S}/bundles/${PV}/binary/docker-${PV}" "${D}${bindir}"
+  ln -sf "docker-${PV}" "${S}/bundles/${PV}/binary/docker-${PV}"
+
+  ##TODO: grab systemd configs, if we have systemd in distro features ("${S}/contrib/init/systemd/docker.{socker,service}")
+}
