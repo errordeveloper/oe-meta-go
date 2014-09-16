@@ -7,10 +7,19 @@ SRC_URI = "git://github.com/docker/docker"
 
 DEPENDS = " \
   go-cross \
-  sqlite3 \
   iproute2 \
   bridge-utils \
 "
+
+RDEPENDS_${PN} = " \
+  iproute2 \
+  bridge-utils \
+"
+
+##NOTE: it links to sqlite statically, so we don't need it at runtime,
+## althought for debugging one my wish to have sqlite3 command installed
+# RDEPENDS_${PN}_dev = " sqlite3 "
+
 ##TODO: make lxc, btrfs and aufs conditional
 
 S = "${WORKDIR}/git"
