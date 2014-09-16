@@ -10,8 +10,7 @@ DEPENDS = " \
   sqlite3 \
   iproute2 \
   bridge-utils \
-  btrfs-tools \
-  lxc \
 "
+##TODO: make lxc, btrfs and aufs conditional
 
 S = "${WORKDIR}/git"
