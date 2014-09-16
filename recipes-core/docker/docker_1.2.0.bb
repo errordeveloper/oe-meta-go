@@ -1,6 +1,6 @@
 require docker.inc
 
-SRCREV = "v${PV}/fix_7979"
+SRCREV = "v${PV}/p2"
 SRC_URI = "git://github.com/errordeveloper/docker;branch=${SRCREV}"
 
 do_compile() {
