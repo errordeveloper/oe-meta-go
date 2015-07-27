@@ -1,0 +1,4 @@
+LIC_FILES_CHKSUM = "file://LICENSE;md5=591778525c869cdde0ab5a1bf283cd81"
+SRC_URI[md5sum] = "c0d732ef7181f98db4b93fbce4eef5a2"
+SRC_URI[sha256sum] = "3ae9f67e45a5ca7004b28808da8b1367d328a371d641ddbe636c0fb0ae0ffdae"
+

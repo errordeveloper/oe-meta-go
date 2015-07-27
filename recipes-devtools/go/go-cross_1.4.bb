@@ -1,4 +1,5 @@
 require go.inc
+require go_${PV}.inc
 
 inherit cross
 
@@ -36,7 +37,7 @@ do_compile() {
   export GO_CCFLAGS="${HOST_CFLAGS}"
   export GO_LDFLAGS="${HOST_LDFLAGS}"
 
-  cd src && ./make.bash
+  cd src && sh -x ./make.bash
 
   ## The result is `go env` giving this:
   # GOARCH="amd64"
