@@ -23,7 +23,7 @@ do_compile() {
   export GO_CCFLAGS="${HOST_CFLAGS}"
   export GO_LDFLAGS="${HOST_LDFLAGS}"
 
-  ./make.bash
+  cd src && ./make.bash
 
   ## The result is `go env` giving this:
   # GOARCH="amd64"
