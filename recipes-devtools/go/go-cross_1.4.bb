@@ -1,6 +1,12 @@
 require go.inc
+require go_${PV}.inc
 
 inherit cross
+
+SRC_URI += "\
+        file://bsd_svid_source.patch \
+        file://ccache.patch \
+        "
 
 do_compile() {
   ## Setting `$GOBIN` doesn't do any good, looks like it ends up copying binaries there.
@@ -9,21 +15,29 @@ do_compile() {
   export GOHOSTOS="linux"
   export GOOS="linux"
 
-  ## TODO: make these conditional
-  export GOARCH="arm"
-  export GOARM="7"
-  export GOHOSTARCH="amd64"
+  export GOARCH="${TARGET_ARCH}"
+  if [ "${TARGET_ARCH}" = "x86_64" ]; then
+    export GOARCH="amd64"
+  fi
+  if [ "${TARGET_ARCH}" = "arm" ]
+  then
+    if [ `echo ${TUNE_PKGARCH} | cut -c 1-7` = "cortexa" ]
+    then
+      echo GOARM 7
+      export GOARM="7"
+    fi
+  fi
 
   export CGO_ENABLED="1"
   ## TODO: consider setting GO_EXTLINK_ENABLED
 
   export CC="${BUILD_CC}"
-  export CC_FOR_TARGET="${TARGET_SYS}-gcc"
-  export CXX_FOR_TARGET="${TARGET_SYS}-g++"
+  export CC_FOR_TARGET="${CC}"
+  export CXX_FOR_TARGET="${CXX}"
   export GO_CCFLAGS="${HOST_CFLAGS}"
   export GO_LDFLAGS="${HOST_LDFLAGS}"
 
-  ./make.bash
+  cd src && sh -x ./make.bash
 
   ## The result is `go env` giving this:
   # GOARCH="amd64"
