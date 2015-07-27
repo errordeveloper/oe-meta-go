@@ -4,6 +4,7 @@ inherit cross
 
 SRC_URI += "\
         file://bsd_svid_source.patch \
+        file://ccache.patch \
         "
 
 do_compile() {
