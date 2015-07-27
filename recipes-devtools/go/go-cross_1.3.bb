@@ -2,6 +2,10 @@ require go.inc
 
 inherit cross
 
+SRC_URI += "\
+        file://bsd_svid_source.patch \
+        "
+
 do_compile() {
   ## Setting `$GOBIN` doesn't do any good, looks like it ends up copying binaries there.
   export GOROOT_FINAL="${SYSROOT}${libdir}/go"
