@@ -6,6 +6,7 @@ inherit cross
 SRC_URI += "\
         file://bsd_svid_source.patch \
         file://ccache.patch \
+        file://0001-cmd-ld-set-alignment-for-the-.rel.plt-section-on-32-.patch \
         "
 
 do_compile() {
