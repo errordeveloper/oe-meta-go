@@ -32,8 +32,8 @@ do_compile() {
   ## TODO: consider setting GO_EXTLINK_ENABLED
 
   export CC="${BUILD_CC}"
-  export CC_FOR_TARGET="${CC}"
-  export CXX_FOR_TARGET="${CXX}"
+  export CC_FOR_TARGET="${TARGET_SYS}-gcc --sysroot=${STAGING_DIR_TARGET} ${TARGET_CC_ARCH}"
+  export CXX_FOR_TARGET="${TARGET_SYS}-g++ --sysroot=${STAGING_DIR_TARGET} ${TARGET_CC_ARCH}"
   export GO_CCFLAGS="${HOST_CFLAGS}"
   export GO_LDFLAGS="${HOST_LDFLAGS}"
 
