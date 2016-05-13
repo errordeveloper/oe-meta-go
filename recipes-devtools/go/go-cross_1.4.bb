@@ -37,6 +37,9 @@ do_compile() {
   export GO_CCFLAGS="${HOST_CFLAGS}"
   export GO_LDFLAGS="${HOST_LDFLAGS}"
 
+  export TMPDIR=${WORKDIR}/build-tmp
+  mkdir ${WORKDIR}/build-tmp
+
   cd src && sh -x ./make.bash
 
   ## The result is `go env` giving this:
