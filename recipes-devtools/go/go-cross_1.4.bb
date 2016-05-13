@@ -40,6 +40,8 @@ do_compile() {
   export CXX_FOR_TARGET="${TARGET_PREFIX}g++ ${TARGET_CC_ARCH} --sysroot=${STAGING_DIR_TARGET}"
   export GO_CCFLAGS="${HOST_CFLAGS}"
   export GO_LDFLAGS="${HOST_LDFLAGS}"
+  export TMPDIR="${WORKDIR}/build-tmp"
+  mkdir "${WORKDIR}/build-tmp"
 
   cd src && bash -x ./make.bash
 
